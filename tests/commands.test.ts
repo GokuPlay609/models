@@ -34,13 +34,13 @@ describe('Help Command', () => {
         expect(mockSocket.sendMessage).toHaveBeenCalledWith(
             '123@s.whatsapp.net',
             expect.objectContaining({
-                text: expect.stringContaining('*🤖 WhatsApp UserBot Menu*'),
+                text: expect.stringContaining('USERBOT MENU'),
             }),
         );
         expect(mockSocket.sendMessage).toHaveBeenCalledWith(
             '123@s.whatsapp.net',
             expect.objectContaining({
-                text: expect.stringContaining('test - A test command'),
+                text: expect.stringContaining('.test'),
             }),
         );
     });
@@ -56,13 +56,13 @@ describe('Help Command', () => {
         expect(mockSocket.sendMessage).toHaveBeenCalledWith(
             '123@s.whatsapp.net',
             expect.objectContaining({
-                text: expect.stringContaining('*Command:* test'),
+                text: expect.stringContaining('[ *TEST* ]'),
             }),
         );
         expect(mockSocket.sendMessage).toHaveBeenCalledWith(
             '123@s.whatsapp.net',
             expect.objectContaining({
-                text: expect.stringContaining('*Description:* A test command'),
+                text: expect.stringContaining('Desc:* A test command'),
             }),
         );
     });

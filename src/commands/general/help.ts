@@ -12,14 +12,19 @@ const help: Command = {
         const remoteJid = msg.key.remoteJid;
         if (!remoteJid) return;
 
+        // React with robot emoji
+        await sock.sendMessage(remoteJid, { react: { text: '🤖', key: msg.key } });
+
         if (args.length > 0) {
             const commandName = args[0].toLowerCase();
             const command = commands.get(commandName);
             if (command) {
-                let helpText = `*Command:* ${command.name}\n`;
-                if (command.aliases) helpText += `*Aliases:* ${command.aliases.join(', ')}\n`;
-                if (command.description) helpText += `*Description:* ${command.description}\n`;
-                if (command.usage) helpText += `*Usage:* ${config.prefix}${command.usage}\n`;
+                let helpText = `╭─── [ *${command.name.toUpperCase()}* ] ───╮\n`;
+                if (command.description) helpText += `│ 📝 *Desc:* ${command.description}\n`;
+                if (command.aliases) helpText += `│ 📎 *Aliases:* ${command.aliases.join(', ')}\n`;
+                if (command.usage) helpText += `│ 💡 *Usage:* \`${config.prefix}${command.usage}\`\n`;
+                if (command.category) helpText += `│ 📂 *Category:* ${command.category}\n`;
+                helpText += `╰─────────────────────╯`;
 
                 await sock.sendMessage(remoteJid, { text: helpText });
                 return;
@@ -29,24 +34,28 @@ const help: Command = {
         const categories = new Map<string, Command[]>();
 
         commands.forEach((cmd) => {
-            const category = cmd.category || 'uncategorized';
+            const category = cmd.category || 'Other';
             if (!categories.has(category)) {
                 categories.set(category, []);
             }
             categories.get(category)?.push(cmd);
         });
 
-        let menuText = `*🤖 WhatsApp UserBot Menu*\n\n`;
+        let menuText = `╭─── [ *USERBOT MENU* ] ───╮\n│\n`;
 
-        categories.forEach((cmds, category) => {
-            menuText += `*${category.toUpperCase()}*\n`;
+        const sortedCategories = Array.from(categories.keys()).sort();
+
+        sortedCategories.forEach((category) => {
+            const cmds = categories.get(category)!;
+            menuText += `│ *${category.toUpperCase()}* 📂\n`;
             cmds.forEach(cmd => {
-                menuText += `• ${config.prefix}${cmd.name}${cmd.description ? ` - ${cmd.description}` : ''}\n`;
+                menuText += `│ • \`${config.prefix}${cmd.name}\`\n`;
             });
-            menuText += '\n';
+            menuText += `│\n`;
         });
 
-        menuText += `Type ${config.prefix}help <command> for more info.`;
+        menuText += `│ Type \`${config.prefix}help <command>\` for details.\n`;
+        menuText += `╰──────────────────────╯`;
 
         await sock.sendMessage(remoteJid, { text: menuText });
     }

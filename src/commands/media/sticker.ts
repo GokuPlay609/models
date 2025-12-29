@@ -27,6 +27,8 @@ const sticker: Command = {
              return;
         }
 
+        await sock.sendMessage(remoteJid, { react: { text: '⏳', key: msg.key } });
+
         const quoted = msg.message?.extendedTextMessage?.contextInfo?.quotedMessage;
         const targetMessage = quoted ? { message: quoted } : msg;
 
@@ -72,10 +74,12 @@ const sticker: Command = {
 
             const stickerBuffer = fs.readFileSync(tempOutput);
             await sock.sendMessage(remoteJid, { sticker: stickerBuffer });
+            await sock.sendMessage(remoteJid, { react: { text: '✅', key: msg.key } });
 
         } catch (error) {
             logger.error({ err: error }, 'Error creating sticker');
             await sock.sendMessage(remoteJid, { text: '❌ Error creating sticker.' });
+            await sock.sendMessage(remoteJid, { react: { text: '❌', key: msg.key } });
         } finally {
             if (fs.existsSync(tempInput)) fs.unlinkSync(tempInput);
             if (fs.existsSync(tempOutput)) fs.unlinkSync(tempOutput);

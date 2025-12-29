@@ -1,116 +1,86 @@
 # WhatsApp UserBot
 
-A modular, production-ready WhatsApp UserBot built with TypeScript and [Baileys](https://github.com/WhiskeySockets/Baileys).
+![CI Status](https://github.com/yourusername/whatsapp-userbot/actions/workflows/ci.yml/badge.svg)
+![License](https://img.shields.io/npm/l/whatsapp-userbot)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)
 
-## Features
+A modular, production-ready WhatsApp UserBot built with **TypeScript** and **Baileys**. designed for simplicity, extensibility, and performance.
 
-- **Modular Architecture**: Easy to add new commands in the `src/commands` directory.
-- **User Bot Mode**: Runs on your own WhatsApp account.
-- **Media Handling**: Includes sticker creation (requires FFmpeg).
-- **Group Management**: Basic admin commands like `promote`.
-- **Developer Friendly**: Written in TypeScript with ESLint, Prettier, and Jest tests.
-- **Docker Ready**: Includes Dockerfile and Compose setup.
+## 🚀 Features
 
-## Prerequisites
+- **Modular Architecture**: Commands are dynamically loaded from `src/commands`.
+- **User Bot Mode**: Securely runs on your own WhatsApp account.
+- **Media Tools**: Create stickers from images and videos.
+- **System Stats**: Check uptime, RAM, and platform info.
+- **Group Management**: Admin tools included.
+- **Docker Ready**: One-command deployment.
 
-- Node.js v18+
+## 🛠 Prerequisites
+
+- [Node.js v18+](https://nodejs.org/)
 - [FFmpeg](https://ffmpeg.org/) (Required for sticker commands)
-- A WhatsApp account on your phone
+- WhatsApp Account (Mobile App)
 
-## Installation
+## ⚡️ Quick Start
 
-1.  **Clone the repository:**
+### Option 1: Automated Setup (Recommended)
+
+Run the interactive setup script:
+
+```bash
+chmod +x scripts/setup.sh
+./scripts/setup.sh
+```
+
+This script will check prerequisites, set up your configuration, install dependencies, and build the project.
+
+### Option 2: Manual Installation
+
+1.  **Clone & Install:**
     ```bash
     git clone https://github.com/yourusername/whatsapp-userbot.git
     cd whatsapp-userbot
-    ```
-
-2.  **Install dependencies:**
-    ```bash
     npm install
     ```
 
-3.  **Setup Configuration:**
-    Create a `.env` file in the root directory:
-    ```env
-    PREFIX=.
-    # OWNER_NUMBER=1234567890 (Optional)
-    LOG_LEVEL=info
+2.  **Configure:**
+    Copy `.env.example` to `.env` and edit it:
+    ```bash
+    cp .env.example .env
+    nano .env
     ```
 
-4.  **Build the project:**
+3.  **Build & Run:**
     ```bash
     npm run build
-    ```
-
-5.  **Start the bot:**
-    ```bash
     npm start
     ```
-    Scan the QR code that appears in your terminal using WhatsApp on your phone (Linked Devices).
 
-## Development
-
-### Adding a New Command
-
-Create a new file in `src/commands/<category>/<commandName>.ts`:
-
-```typescript
-import { Command } from '../../types';
-
-const myCommand: Command = {
-    name: 'mycommand',
-    description: 'Description of my command',
-    category: 'general',
-    usage: 'mycommand <args>',
-    execute: async (sock, msg, args) => {
-        const remoteJid = msg.key.remoteJid;
-        if (remoteJid) {
-            await sock.sendMessage(remoteJid, { text: 'Hello World!' });
-        }
-    }
-};
-
-export default myCommand;
-```
-
-### Running Tests
-
-```bash
-npm test
-```
-
-### Linting
-
-```bash
-npm run lint
-```
-
-## Deployment
-
-### Docker
-
-1.  **Build the image:**
-    ```bash
-    docker build -t whatsapp-userbot .
-    ```
-
-2.  **Run the container:**
-    ```bash
-    docker run -d --name my-userbot -v ./auth_info_baileys:/usr/src/app/auth_info_baileys whatsapp-userbot
-    ```
-
-### Docker Compose
+### Option 3: Docker
 
 ```bash
 docker-compose up -d
 ```
 
-## Troubleshooting
+## 📝 Configuration
 
--   **Stickers not working?** Ensure FFmpeg is installed and accessible in your system PATH.
--   **Connection Failed?** Delete `auth_info_baileys` folder and restart to re-scan QR.
+The bot is configured via the `.env` file:
 
-## License
+| Variable | Description | Default |
+| :--- | :--- | :--- |
+| `PREFIX` | Command prefix (e.g., `.`, `!`, `/`) | `.` |
+| `LOG_LEVEL` | Logging verbosity | `info` |
 
-ISC
+## 🤝 Contributing
+
+We welcome contributions! Please see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for a guide on adding new commands.
+
+1.  Fork the repo.
+2.  Create your feature branch (`git checkout -b feature/amazing-feature`).
+3.  Commit your changes (`git commit -m 'Add amazing feature'`).
+4.  Push to the branch (`git push origin feature/amazing-feature`).
+5.  Open a Pull Request.
+
+## 📄 License
+
+This project is licensed under the ISC License.
