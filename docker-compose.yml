@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  bot:
+    build: .
+    volumes:
+      - ./auth_info_baileys:/usr/src/app/auth_info_baileys
+    restart: always

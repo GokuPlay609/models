@@ -8,7 +8,7 @@ const alive: Command = {
         if (remoteJid) {
             await sock.sendMessage(remoteJid, { text: 'I am online and ready!' });
         }
-    }
+    },
 };
 
 export default alive;

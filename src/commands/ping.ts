@@ -8,7 +8,7 @@ const ping: Command = {
         if (remoteJid) {
             await sock.sendMessage(remoteJid, { text: 'Pong!' });
         }
-    }
+    },
 };
 
 export default ping;

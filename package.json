@@ -5,19 +5,36 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts tests/**/*.ts"
   },
   "dependencies": {
     "@whiskeysockets/baileys": "^6.5.0",
     "dotenv": "^16.4.5",
+    "fluent-ffmpeg": "^2.1.3",
     "pino": "^9.0.0",
     "qrcode-terminal": "^0.12.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
+    "@types/fluent-ffmpeg": "^2.1.28",
+    "@types/jest": "^30.0.0",
     "@types/node": "^20.0.0",
     "@types/qrcode-terminal": "^0.12.2",
+    "@typescript-eslint/eslint-plugin": "^8.50.1",
+    "@typescript-eslint/parser": "^8.50.1",
+    "babel-jest": "^30.2.0",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "jest": "^30.2.0",
+    "prettier": "^3.7.4",
+    "ts-jest": "^29.4.6",
     "ts-node": "^10.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.50.1"
   },
   "license": "ISC"
 }
